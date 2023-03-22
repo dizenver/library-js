@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;1,400;1,500&family=Old+Standard+TT:wght@400;700&family=Quattrocento+Sans&display=swap"
+			rel="stylesheet"
+		/>
+		<title>Diz Library</title>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>My Library</h1>
+			</div>
+			<div class="sort"></div>
+			<form action="" id="add-book-form">
+				<input
+					type="text"
+					id="form-title"
+					name="form-title"
+					placeholder="Title of book"
+				/>
+				<input
+					type="text"
+					id="form-author"
+					name="form-author"
+					placeholder="Author of book"
+				/>
+				<input
+					type="number"
+					id="form-pages"
+					name="form-pages"
+					placeholder="Pages"
+				/>
+				<select id="form-read" name="form-read">
+					<option value="" selected hidden>Book Status</option>
+					<option value="read">Not Read</option>
+					<option value="unread">Read</option>
+				</select>
+				<button id="addBook" onclick="submitNewBook()">Add Book</button>
+				<script>
+					const submitBook = document.getElementById('addBook');
+
+					submitBook.addEventListener('click', function (event) {
+						event.preventDefault();
+					});
+				</script>
+			</form>
+			<div class="my-library" id="my-library"></div>
+			<div class="add-book" id="add-book"></div>
+		</div>
+		<script type="text/javascript" src="script.js"></script>
+	</body>
+</html>

@@ -29,19 +29,19 @@ function loadLibrary() {
 		bookCard.classList.add('book-card');
 		bookCard.setAttribute('id', `book-card`);
 		bookCard.setAttribute('data-attribute', `${bookCount}`);
-		bookCard.textContent = 'Card: ' + bookCount;
+		// bookCard.textContent = 'Book: ' + bookCount;
 		myLibrary.appendChild(bookCard);
 
 		const bookTitle = document.createElement('div');
 		bookTitle.classList.add('book-title');
 		bookTitle.setAttribute('id', 'book-title');
-		bookTitle.textContent = 'Title: ' + library[key].title;
+		bookTitle.textContent = library[key].title;
 		bookCard.appendChild(bookTitle);
 
 		const bookAuthor = document.createElement('div');
 		bookAuthor.classList.add('book-author');
 		bookAuthor.setAttribute('id', 'book-author');
-		bookAuthor.textContent = 'Author: ' + library[key].author;
+		bookAuthor.textContent = 'by ' + library[key].author;
 		bookCard.appendChild(bookAuthor);
 
 		const bookPages = document.createElement('div');
@@ -51,28 +51,30 @@ function loadLibrary() {
 		bookCard.appendChild(bookPages);
 
 		const bookRead = document.createElement('div');
-		bookRead.classList.add('book-status');
-		bookRead.setAttribute('id', 'book-status');
-		bookRead.textContent = 'Pages: ' + library[key].read;
+		bookRead.classList.add('read-status');
+		bookRead.setAttribute('id', 'read-status');
+		bookRead.textContent = 'Status: ' + library[key].read;
 		bookCard.appendChild(bookRead);
 
-		const removeBook = document.createElement('button');
-		removeBook.setAttribute('id', 'remove-book');
-		removeBook.textContent = 'Remove';
-		removeBook.setAttribute('onclick', `removeBook(${bookCount})`);
-		bookCard.appendChild(removeBook);
-
-		const toggleReadStatus = document.createElement('button');
+		const toggleReadStatus = document.createElement('i');
 		toggleReadStatus.setAttribute('id', 'toggle-read-status');
-		toggleReadStatus.textContent = 'Read/Unread';
 		toggleReadStatus.setAttribute('onclick', `toggleRead(${bookCount})`);
 		bookCard.appendChild(toggleReadStatus);
+
+		const removeBook = document.createElement('i');
+		removeBook.setAttribute('id', 'remove-book');
+		removeBook.setAttribute('class', 'fa-solid fa-trash-can');
+		removeBook.classList.add('remove-icon');
+		removeBook.setAttribute('onclick', `removeBook(${bookCount})`);
+		bookCard.appendChild(removeBook);
 
 		// Set Class of Card Based on Read Status
 		if (library[key].read === 'Unread') {
 			bookCard.setAttribute('class', `book-unread`);
+			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye');
 		} else {
 			bookCard.setAttribute('class', `book-read`);
+			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye-slash');
 		}
 
 		bookCount++;

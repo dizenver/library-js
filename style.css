@@ -136,8 +136,8 @@ input[type='number'] {
 :root {
 	--dark: #222;
 	--light: #999;
-	--unread: red;
-	--read: green;
+	--unread: 98, 98, 98;
+	--read: 0, 144, 180;
 }
 
 h1,
@@ -169,13 +169,14 @@ span {
 .header {
 	display: grid;
 	justify-content: center;
-	margin: 20px auto;
+	align-content: center;
 	border-bottom: white 1px solid;
+	height: 75px;
 }
 
 .my-library {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, 200px);
+	grid-template-columns: repeat(auto-fit, 225px);
 	justify-content: center;
 	gap: 20px;
 }
@@ -189,19 +190,91 @@ span {
 
 #book-card {
 	border-radius: 10px;
-	padding: 10px;
+	padding: 20px;
+	display: grid;
+	gap: 10px;
+	align-items: center;
+	justify-items: center;
+	grid-template-rows: 50px 20px 20px 20px 1fr;
+	grid-template-areas:
+		'title title'
+		'author author'
+		'pages pages'
+		'read-status read-status'
+		'read-toggle remove-icon';
 }
 
+.book-title {
+	font-family: 'Fira Sans Condensed', sans-serif;
+	font-size: 1.25rem;
+	margin-bottom: 5px;
+	text-align: center;
+	grid-area: title;
+}
+
+.book-author {
+	grid-area: author;
+	font-size: 1rem;
+}
+
+.book-pages {
+	grid-area: pages;
+	font-size: 0.85rem;
+}
+
+.read-status {
+	grid-area: read-status;
+	font-size: 0.85rem;
+}
+
+#toggle-read-status {
+	grid-area: read-toggle;
+	background-color: rgba(var(--read), 0.6);
+	padding: 5px;
+}
+
+#book-card > .fa-eye-slash {
+	background-color: rgb(var(--unread));
+}
+
+.remove-icon {
+	grid-area: remove-icon;
+	background-color: rgb(160, 0, 0);
+	padding: 5px;
+}
+
+#remove-book,
+#toggle-read-status {
+	display: grid;
+	align-items: center;
+	justify-items: center;
+	font-size: 1.25em;
+	height: 25px;
+	width: 90%;
+	border-radius: 5px;
+}
+
+/* Read/Unread Card Colors */
 .book-read {
-	border: 1px solid green;
+	border: 1px solid rgb(var(--read));
+	background-color: rgba(var(--read), 0.3);
 }
 
 .book-unread {
-	border: 1px solid red;
-	background-color: rgba(255, 0, 0, 0.5);
+	border: 1px solid rgb(var(--unread));
+	background-color: rgba(var(--unread), 0.3);
 }
 
 /* Add Book Form Style */
+form {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	grid-auto-flow: column;
+	gap: 10px;
+	margin: 10px 0;
+}
+
 input,
 select {
 	width: 200px;
@@ -211,14 +284,15 @@ select {
 	border: 0;
 	box-sizing: border-box;
 	color: #eee;
-	font-size: 18px;
+	font-size: 14px;
+	font-family: 'Fira Sans Condensed', sans-serif;
 	outline: 0;
 	padding: 4px 20px 0;
 }
 
 form > button {
 	height: 50px;
-	width: 200px;
+	width: 100px;
 	background-color: #464646;
 	color: white;
 	border-radius: 6px;

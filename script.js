@@ -56,37 +56,42 @@ function loadLibrary() {
 		bookRead.textContent = 'Status: ' + library[key].read;
 		bookCard.appendChild(bookRead);
 
-		// const menuIcon = document.createElement('button');
-		// menuIcon.setAttribute('id', 'card-menu-icon');
-		// menuIcon.setAttribute('class', 'fa-solid fa-ellipsis-vertical');
-		// menuIcon.classList.add('card-menu-icon');
-		// menuIcon.setAttribute('onclick', `cardMenuToggle()`);
-		// bookCard.appendChild(menuIcon);
+		const menuIcon = document.createElement('div');
+		menuIcon.setAttribute('id', 'card-menu-icon');
+		menuIcon.setAttribute('class', 'fa-solid fa-ellipsis-vertical');
+		menuIcon.classList.add('card-menu-icon');
+		menuIcon.setAttribute('onclick', `cardMenuToggle(${bookCount})`);
+		bookCard.appendChild(menuIcon);
 
-		// const cardMenu = document.createElement('ul');
-		// cardMenu.setAttribute('id', 'card-menu');
-		// cardMenuItems.classList.add('card-menu');
-		// bookCard.appendChild(cardMenu);
+		const cardMenu = document.createElement('ul');
+		cardMenu.setAttribute('id', `card-menu-${bookCount}`);
+		cardMenu.classList.add('card-menu');
+		bookCard.appendChild(cardMenu);
 
-		const toggleReadStatus = document.createElement('i');
+		const toggleReadStatus = document.createElement('li');
 		toggleReadStatus.setAttribute('id', 'toggle-read-status');
 		toggleReadStatus.setAttribute('onclick', `toggleRead(${bookCount})`);
-		bookCard.appendChild(toggleReadStatus);
+		cardMenu.appendChild(toggleReadStatus);
 
-		const removeBook = document.createElement('i');
+		const removeBook = document.createElement('li');
 		removeBook.setAttribute('id', 'remove-book');
 		removeBook.setAttribute('class', 'fa-solid fa-trash-can');
 		removeBook.classList.add('remove-icon');
+		removeBook.innerHTML = '<span class="card-menu-titles">Remove Book</span> ';
 		removeBook.setAttribute('onclick', `removeBook(${bookCount})`);
-		bookCard.appendChild(removeBook);
+		cardMenu.appendChild(removeBook);
 
 		// Set Class of Card Based on Read Status
 		if (library[key].read === 'Unread') {
 			bookCard.setAttribute('class', `book-unread`);
 			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye');
+			toggleReadStatus.innerHTML =
+				'<span class="card-menu-titles">Mark as Read</span> ';
 		} else {
 			bookCard.setAttribute('class', `book-read`);
 			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye-slash');
+			toggleReadStatus.innerHTML =
+				'<span class="card-menu-titles">Mark as Unread</span> ';
 		}
 
 		bookCount++;
@@ -131,13 +136,13 @@ function toggleRead(bookIndex) {
 	loadLibrary();
 }
 
-function cardMenuToggle() {
-	document.getElementById('card-menu-items').classList.toggle('show');
+function cardMenuToggle(bookCount) {
+	document.getElementById(`card-menu-${bookCount}`).classList.toggle('show');
 }
 
 window.onclick = function (event) {
 	if (!event.target.matches('.card-menu-icon')) {
-		var dropdowns = document.getElementsByClassName('card-menu-items');
+		var dropdowns = document.getElementsByClassName('card-menu');
 		var i;
 		for (i = 0; i < dropdowns.length; i++) {
 			var openDropdown = dropdowns[i];

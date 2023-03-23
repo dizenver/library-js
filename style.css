@@ -134,8 +134,10 @@ input[type='number'] {
 }
 
 :root {
-	--dark: #222;
-	--light: #999;
+	--dark: rgb(12 24 47);
+	--light: rgb(23 42 69);
+	--white: rgb(204 214 246);
+	--accent: rgb(103 255 225);
 	--unread: 98, 98, 98;
 	--read: 0, 144, 180;
 }
@@ -170,7 +172,7 @@ span {
 	display: grid;
 	justify-content: center;
 	align-content: center;
-	border-bottom: white 1px solid;
+	border-bottom: var(--white) 1px solid;
 	height: 75px;
 }
 
@@ -184,12 +186,13 @@ span {
 .my-library > * {
 	height: 200px;
 	font-family: 'Quattrocento Sans', sans-serif;
-	color: white;
+	color: var(--white);
+	background-color: var(--light);
 	border: 1px solid red;
 }
 
 #book-card {
-	border-radius: 10px;
+	border-radius: 5px;
 	padding: 20px;
 	display: grid;
 	gap: 10px;
@@ -201,7 +204,8 @@ span {
 		'author author'
 		'pages pages'
 		'read-status read-status'
-		'read-toggle remove-icon';
+		'read-toggle remove-icon'
+		'tags tags';
 }
 
 .book-title {
@@ -256,13 +260,13 @@ span {
 
 /* Read/Unread Card Colors */
 .book-read {
-	border: 1px solid rgb(var(--read));
-	background-color: rgba(var(--read), 0.3);
+	border: 1px solid var(--accent);
+	/* background-color: rgba(var(--read), 0.3); */
 }
 
 .book-unread {
 	border: 1px solid rgb(var(--unread));
-	background-color: rgba(var(--unread), 0.3);
+	/* background-color: rgba(var(--unread), 0.3); */
 }
 
 /* Add Book Form Style */
@@ -279,7 +283,7 @@ input,
 select {
 	width: 200px;
 	height: 50px;
-	background-color: #626262;
+	background-color: var(--light);
 	border-radius: 6px;
 	border: 0;
 	box-sizing: border-box;

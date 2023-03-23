@@ -56,6 +56,18 @@ function loadLibrary() {
 		bookRead.textContent = 'Status: ' + library[key].read;
 		bookCard.appendChild(bookRead);
 
+		// const menuIcon = document.createElement('button');
+		// menuIcon.setAttribute('id', 'card-menu-icon');
+		// menuIcon.setAttribute('class', 'fa-solid fa-ellipsis-vertical');
+		// menuIcon.classList.add('card-menu-icon');
+		// menuIcon.setAttribute('onclick', `cardMenuToggle()`);
+		// bookCard.appendChild(menuIcon);
+
+		// const cardMenu = document.createElement('ul');
+		// cardMenu.setAttribute('id', 'card-menu');
+		// cardMenuItems.classList.add('card-menu');
+		// bookCard.appendChild(cardMenu);
+
 		const toggleReadStatus = document.createElement('i');
 		toggleReadStatus.setAttribute('id', 'toggle-read-status');
 		toggleReadStatus.setAttribute('onclick', `toggleRead(${bookCount})`);
@@ -118,3 +130,20 @@ function toggleRead(bookIndex) {
 	}
 	loadLibrary();
 }
+
+function cardMenuToggle() {
+	document.getElementById('card-menu-items').classList.toggle('show');
+}
+
+window.onclick = function (event) {
+	if (!event.target.matches('.card-menu-icon')) {
+		var dropdowns = document.getElementsByClassName('card-menu-items');
+		var i;
+		for (i = 0; i < dropdowns.length; i++) {
+			var openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
+};

@@ -19,10 +19,45 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="header">
-				<h1>My Library</h1>
+			<div class="theme">
+				<form action="" class="color-picker">
+					<fieldset>
+						<legend class="visually-hidden">Pick a Color Scheme</legend>
+						<label for="darkblue-theme" class="visually-hidden">Dark</label>
+						<input
+							type="radio"
+							name="theme"
+							id="darkblue-theme"
+							class="darkblue-theme"
+							checked
+						/>
+						<label for="darkpurple-theme" class="visually-hidden">Purple</label>
+						<input
+							type="radio"
+							name="theme"
+							id="darkpurple-theme"
+							class="darkpurple-theme"
+						/>
+						<label for="darkorange-theme" class="visually-hidden">Purple</label>
+						<input
+							type="radio"
+							name="theme"
+							id="darkorange-theme"
+							class="darkorange-theme"
+						/>
+						<label for="light-theme" class="visually-hidden">Light</label>
+						<input
+							type="radio"
+							name="theme"
+							id="light-theme"
+							class="light-theme"
+						/>
+					</fieldset>
+				</form>
 			</div>
-			<div class="sort"></div>
+			<div class="header">
+				<h1>Library App</h1>
+			</div>
 			<form action="" id="add-book-form">
 				<input
 					type="text"
@@ -43,9 +78,18 @@
 					placeholder="Pages"
 				/>
 				<select id="form-read" name="form-read">
-					<option value="" selected hidden>Book Status</option>
+					<option value="" selected hidden>Status</option>
 					<option value="read">Not Read</option>
 					<option value="unread">Read</option>
+				</select>
+				<select id="form-tag" name="form-tag">
+					<option value="" selected hidden>Genre</option>
+					<option value="romance">Romance</option>
+					<option value="mystery">Mystery</option>
+					<option value="fantasy">Fantasy</option>
+					<option value="thriller">Thriller</option>
+					<option value="self-help">Self-help</option>
+					<option value="biography">Biography</option>
 				</select>
 				<button id="addBook" onclick="submitNewBook()">Add Book</button>
 				<script>

@@ -1,23 +1,31 @@
 let library = [];
 
-function book(title, author, pages, read) {
+function book(title, author, pages, read, tags) {
 	(this.title = title),
 		(this.author = author),
 		(this.pages = Number(pages)),
 		(this.read = read);
+	this.tags = tags;
 }
 
-const hobbit = new book('The Hobbit', 'JRR Tolkien', 295, 'Unread');
-const useless = new book(
-	'The Book of Useless Information',
-	'Noel Botham',
-	304,
-	'Unread'
+const habits = new book(
+	'Atomic Habits',
+	'James Clear',
+	306,
+	'Unread',
+	'Self-help'
 );
-const wit = new book('Wit', 'Des MacHale', 320, 'Read');
-addBookToLibrary(hobbit);
-addBookToLibrary(useless);
-addBookToLibrary(wit);
+const loveIsaDog = new book(
+	'Love is a Dog From Hell',
+	'Charles Bukowski',
+	312,
+	'Read',
+	'Poetry'
+);
+const yearbook = new book('Yearbook', 'Seth Rogan', 320, 'Unread', 'Biography');
+addBookToLibrary(habits);
+addBookToLibrary(loveIsaDog);
+addBookToLibrary(yearbook);
 
 function loadLibrary() {
 	const myLibrary = document.getElementById('my-library');
@@ -41,7 +49,7 @@ function loadLibrary() {
 		const bookAuthor = document.createElement('div');
 		bookAuthor.classList.add('book-author');
 		bookAuthor.setAttribute('id', 'book-author');
-		bookAuthor.textContent = 'by ' + library[key].author;
+		bookAuthor.innerHTML = `by <span class="accent-span">${library[key].author}</span>`;
 		bookCard.appendChild(bookAuthor);
 
 		const bookPages = document.createElement('div');
@@ -53,8 +61,13 @@ function loadLibrary() {
 		const bookRead = document.createElement('div');
 		bookRead.classList.add('read-status');
 		bookRead.setAttribute('id', 'read-status');
-		bookRead.textContent = 'Status: ' + library[key].read;
 		bookCard.appendChild(bookRead);
+
+		const bookTags = document.createElement('div');
+		bookTags.classList.add('book-tags');
+		bookTags.setAttribute('id', 'book-tags');
+		bookTags.textContent = `${library[key].tags}`;
+		bookCard.appendChild(bookTags);
 
 		const menuIcon = document.createElement('div');
 		menuIcon.setAttribute('id', 'card-menu-icon');
@@ -81,17 +94,19 @@ function loadLibrary() {
 		removeBook.setAttribute('onclick', `removeBook(${bookCount})`);
 		cardMenu.appendChild(removeBook);
 
-		// Set Class of Card Based on Read Status
+		// Set Class of Card and Read Status Word Based on Read Status
 		if (library[key].read === 'Unread') {
 			bookCard.setAttribute('class', `book-unread`);
 			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye');
 			toggleReadStatus.innerHTML =
 				'<span class="card-menu-titles">Mark as Read</span> ';
+			bookRead.innerHTML = 'Status: <span class="invert-span">Unread</span>';
 		} else {
 			bookCard.setAttribute('class', `book-read`);
 			toggleReadStatus.setAttribute('class', 'fa-regular fa-eye-slash');
 			toggleReadStatus.innerHTML =
 				'<span class="card-menu-titles">Mark as Unread</span> ';
+			bookRead.innerHTML = 'Status: <span class="accent-span">Read</span>';
 		}
 
 		bookCount++;
@@ -103,18 +118,30 @@ function submitNewBook() {
 	const newBookAuthor = document.getElementById('form-author').value;
 	const newBookPages = document.getElementById('form-pages').value;
 	const newBookRead = document.getElementById('form-read').value;
+	const newBookTag = document.getElementById('form-tag').value;
 
-	let newBook = new book(
-		newBookTitle,
-		newBookAuthor,
-		newBookPages,
-		newBookRead
-	);
+	if (
+		!newBookTitle ||
+		!newBookAuthor ||
+		!newBookPages ||
+		!newBookRead ||
+		!newBookTag
+	) {
+		alert('Please fill out book information before adding to library');
+	} else {
+		let newBook = new book(
+			newBookTitle,
+			newBookAuthor,
+			newBookPages,
+			newBookRead,
+			newBookTag
+		);
 
-	addBookToLibrary(newBook);
+		addBookToLibrary(newBook);
 
-	let inputs = document.querySelectorAll('input');
-	inputs.forEach((input) => (input.value = ''));
+		let inputs = document.querySelectorAll('input');
+		inputs.forEach((input) => (input.value = ''));
+	}
 }
 
 function addBookToLibrary(book) {
@@ -152,3 +179,32 @@ window.onclick = function (event) {
 		}
 	}
 };
+
+const colorThemes = document.querySelectorAll('[name="theme"]');
+
+// store theme
+const storeTheme = function (theme) {
+	localStorage.setItem('theme', theme);
+};
+
+// set theme when visitor returns
+const setTheme = function () {
+	const activeTheme = localStorage.getItem('theme');
+	colorThemes.forEach((themeOption) => {
+		if (themeOption.id === activeTheme) {
+			themeOption.checked = true;
+		}
+	});
+	// fallback for no :has() support
+	document.documentElement.className = activeTheme;
+};
+
+colorThemes.forEach((themeOption) => {
+	themeOption.addEventListener('click', () => {
+		storeTheme(themeOption.id);
+		// fallback for no :has() support
+		document.documentElement.className = themeOption.id;
+	});
+});
+
+document.onload = setTheme();

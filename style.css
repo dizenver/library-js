@@ -134,11 +134,6 @@ input[type='number'] {
 }
 
 :root {
-	--primary: rgb(12 24 47);
-	--secondary: rgb(23 42 69);
-	--light-invert: rgb(204 214 246);
-	--dark-invert: rgb(0, 0, 0);
-	--accent: rgb(103 255 225);
 }
 
 h1,
@@ -146,7 +141,7 @@ h2,
 h3,
 h4 {
 	font-family: 'Fira Sans Condensed', sans-serif;
-	color: white;
+	color: var(--invert);
 }
 
 h1 {
@@ -155,6 +150,10 @@ h1 {
 
 span {
 	font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+body {
+	margin: 0;
 }
 
 .container {
@@ -172,34 +171,35 @@ span {
 	display: grid;
 	align-content: center;
 	justify-content: center;
-	height: 75px;
+	height: 100px;
 }
 
 .my-library {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	grid-auto-flow: column;
+	grid-auto-flow: row;
 	grid-template-rows: repeat(auto-fill, 300px);
 	justify-content: center;
+	align-items: center;
 	gap: 30px;
 }
 
 .my-library > * {
 	height: 200px;
 	font-family: 'Quattrocento Sans', sans-serif;
-	color: var(--light-invert);
+	color: var(--invert);
 	background-color: var(--secondary);
 	border: 1px solid red;
 }
 
 #book-card {
-	border-radius: 0px 5% 5% 0px;
+	border-radius: 0px 10px 10px 0px;
 	padding: 20px;
 	display: grid;
 	gap: 10px;
 	overflow: hidden;
 	align-items: center;
-	grid-template-rows: 1fr 20px 20px 20px 20px;
+	grid-template-rows: 2fr 20px 20px 20px 1fr;
 	grid-template-columns: 1fr 25px;
 	grid-template-areas:
 		'title menu-icon'
@@ -226,7 +226,7 @@ span {
 
 .book-author {
 	grid-area: author;
-	font-size: 1rem;
+	font-size: 0.9rem;
 }
 
 .book-pages {
@@ -237,6 +237,24 @@ span {
 .read-status {
 	grid-area: read-status;
 	font-size: 0.85rem;
+}
+
+.accent-span {
+	font-weight: 500;
+	color: var(--accent);
+}
+
+.invert-span {
+	font-weight: 500;
+}
+
+.book-tags {
+	grid-area: tags;
+	font-size: 0.7rem;
+	text-transform: uppercase;
+	opacity: 0.8;
+	font-family: 'Fira Sans Condensed', sans-serif;
+	align-self: flex-end;
 }
 
 #toggle-read-status {
@@ -273,37 +291,37 @@ span {
 }
 
 .book-unread {
-	border: 1px solid var(--light-invert);
-	box-shadow: 5px 5px 10px var(--light-invert);
+	border: 1px solid var(--invert);
+	box-shadow: 5px 5px 10px var(--invert);
 	/* background-color: rgba(var(--unread), 0.3); */
 }
 
 /* Add Book Form Style */
-form {
+.container > form {
 	display: grid;
 	align-items: center;
 	justify-content: center;
 	grid-auto-flow: column;
 	gap: 10px;
 	margin: 10px 0;
-	grid-template-columns: 20% 20% 10% 20% 20%;
+	/* grid-template-columns: 20% 20% 10% 10% 20% 20%; */
 }
 
-input,
+.container > form > input,
 select {
 	height: 50px;
 	background-color: var(--secondary);
 	border-radius: 6px;
 	border: 0;
 	box-sizing: border-box;
-	color: var(--light-invert);
+	color: var(--invert);
 	font-size: 14px;
 	font-family: 'Fira Sans Condensed', sans-serif;
 	outline: 0;
 	padding: 4px 20px 0;
 }
 
-form > button {
+.container > form > button {
 	height: 50px;
 	width: 100px;
 	background-color: var(--secondary);
@@ -363,7 +381,7 @@ input::placeholder {
 /* Change color of dropdown links on hover */
 .card-menu li:hover {
 	background-color: var(--secondary);
-	color: var(--light-invert);
+	color: var(--invert);
 }
 
 /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
@@ -380,7 +398,7 @@ input::placeholder {
 		gap: 20px;
 	}
 
-	form {
+	.container > form {
 		display: grid;
 		align-items: center;
 		justify-content: center;
@@ -400,7 +418,7 @@ input::placeholder {
 		gap: 20px;
 	}
 
-	form {
+	.container > form {
 		display: grid;
 		align-items: center;
 		justify-content: center;
@@ -410,4 +428,103 @@ input::placeholder {
 		margin: 10px 0;
 		grid-template-columns: 250px;
 	}
+}
+.visually-hidden {
+	display: none;
+}
+.color-picker > fieldset {
+	border: 0;
+	display: flex;
+	width: fit-content;
+	gap: 2rem;
+	background: var(--secondary);
+	padding: 1rem 2rem;
+	margin-inline: auto;
+	border-radius: 0px 0px 10px 10px;
+	box-shadow: 1px 1px 5px 5px var(--accent);
+}
+
+.color-picker input[type='radio'] {
+	appearance: none;
+	width: 1rem;
+	height: 1rem;
+	outline: 2px solid var(--radio-color, currentColor);
+	outline-offset: 2px;
+	border-radius: 25%;
+}
+
+.color-picker input[type='radio']:checked {
+	background-color: var(--radio-color);
+}
+
+.color-picker input[type='radio']#darkblue-theme {
+	--radio-color: rgb(103 255 225);
+}
+
+.color-picker input[type='radio']#darkpurple-theme {
+	--radio-color: rgb(192, 103, 255);
+}
+
+.color-picker input[type='radio']#darkorange-theme {
+	--radio-color: rgb(255, 166, 103);
+}
+
+.color-picker input[type='radio']#light-theme {
+	--radio-color: rgb(204 214 246);
+}
+
+.darkblue-theme {
+	--primary: rgb(12 24 47);
+	--secondary: rgb(23 42 69);
+	--invert: rgb(204 214 246);
+	--accent: rgb(103 255 225);
+}
+
+:root:has(#darkblue-theme:checked) {
+	--primary: rgb(12 24 47);
+	--secondary: rgb(23 42 69);
+	--invert: rgb(204 214 246);
+	--accent: rgb(103 255 225);
+}
+
+.darkpurple-theme {
+	--primary: rgb(27, 12, 47);
+	--secondary: rgb(49, 23, 69);
+	--invert: rgb(204 214 246);
+	--accent: rgb(192, 103, 255);
+}
+
+:root:has(#darkpurple-theme:checked) {
+	--primary: white;
+	--secondary: rgb(226, 226, 226);
+	--invert: black;
+	--accent: rgb(35, 73, 126);
+}
+
+.darkorange-theme {
+	--primary: rgb(47, 32, 12);
+	--secondary: rgb(69, 42, 23);
+	--invert: rgb(204 214 246);
+	--accent: rgb(255, 166, 103);
+}
+
+:root:has(#darkorange-theme:checked) {
+	--primary: rgb(47, 32, 12);
+	--secondary: rgb(69, 42, 23);
+	--invert: rgb(204 214 246);
+	--accent: rgb(255, 166, 103);
+}
+
+.light-theme {
+	--primary: rgb(226, 226, 226);
+	--secondary: white;
+	--invert: black;
+	--accent: rgb(111, 146, 174);
+}
+
+:root:has(#light-theme:checked) {
+	--primary: white;
+	--secondary: rgb(226, 226, 226);
+	--invert: black;
+	--accent: rgb(35, 73, 126);
 }
